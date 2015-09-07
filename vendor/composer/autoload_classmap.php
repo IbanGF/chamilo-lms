@@ -200,7 +200,6 @@ return array(
     'Facebook\\HttpClients\\FacebookStream' => $baseDir . '/main/auth/external_login/facebook-php-sdk/src/Facebook/HttpClients/FacebookStream.php',
     'Facebook\\HttpClients\\FacebookStreamHttpClient' => $baseDir . '/main/auth/external_login/facebook-php-sdk/src/Facebook/HttpClients/FacebookStreamHttpClient.php',
     'FileManager' => $baseDir . '/main/inc/lib/fileManage.lib.php',
-    'FileStore' => $baseDir . '/main/inc/lib/file_store.class.php',
     'File_ANSI' => $baseDir . '/main/inc/lib/phpseclib/File/ANSI.php',
     'File_ASN1' => $baseDir . '/main/inc/lib/phpseclib/File/ASN1.php',
     'File_ASN1_Element' => $baseDir . '/main/inc/lib/phpseclib/File/ASN1.php',

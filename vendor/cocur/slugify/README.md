@@ -78,7 +78,7 @@ $slugify->activateRuleset('esperanto');
 echo $slugify->slugify('serĉi manĝi'); // sercxi-mangxi
 ```
 
-You can add rulesets by using `Slugify::addRuleset()` and retrieve all rulesets with `Slugify::getRuleset()`.
+You can add rulesets by using `Slugify::addRuleset()` and retrieve all rulesets with `Slugify::getRulesets()`.
 
 ### Further Customization
 
@@ -360,6 +360,13 @@ $latte->addFilter('slugify', array(new SlugifyHelper(Slugify::create()), 'slugif
 
 Changelog
 ---------
+
+### Version 1.3 (2 September 2015)
+
+- [#70](https://github.com/cocur/slugify/pull/70) Add missing superscript and subscript digits (by [BlueM](https://github.com/BlueM))
+- [#71](https://github.com/cocur/slugify/pull/71) Improve Greek language support (by [kostaspt](https://github.com/kostaspt))
+- [#72](https://github.com/cocur/slugify/pull/72) Improve Silex integration (by [CarsonF](https://github.com/CarsonF))
+- [#73](https://github.com/cocur/slugify/pull/73) Improve Russian language support (by [akost](https://github.com/akost))
 
 ### Version 1.2 (2 July 2015)
 
