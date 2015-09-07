@@ -858,16 +858,16 @@
         },
         {
             "name": "cocur/slugify",
-            "version": "v1.2",
+            "version": "v1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cocur/slugify.git",
-                "reference": "5d8e48f750e4ed6528f08fe560a5032a373c3550"
+                "reference": "6bf38846ecb34d24288cdea7195122b6452c1882"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cocur/slugify/zipball/5d8e48f750e4ed6528f08fe560a5032a373c3550",
-                "reference": "5d8e48f750e4ed6528f08fe560a5032a373c3550",
+                "url": "https://api.github.com/repos/cocur/slugify/zipball/6bf38846ecb34d24288cdea7195122b6452c1882",
+                "reference": "6bf38846ecb34d24288cdea7195122b6452c1882",
                 "shasum": ""
             },
             "require": {
@@ -917,7 +917,7 @@
                 "slug",
                 "slugify"
             ],
-            "time": "2015-07-02 20:13:51"
+            "time": "2015-09-02 20:14:32"
         },
         {
             "name": "ddeboer/data-import",
@@ -3348,16 +3348,16 @@
         },
         {
             "name": "sabre/vobject",
-            "version": "3.4.6",
+            "version": "3.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruux/sabre-vobject.git",
-                "reference": "c2606c5985aabd14f37d444e494d72f67b71d290"
+                "reference": "7b3690545451159fc608dfac6696110f6770ff5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruux/sabre-vobject/zipball/c2606c5985aabd14f37d444e494d72f67b71d290",
-                "reference": "c2606c5985aabd14f37d444e494d72f67b71d290",
+                "url": "https://api.github.com/repos/fruux/sabre-vobject/zipball/7b3690545451159fc608dfac6696110f6770ff5d",
+                "reference": "7b3690545451159fc608dfac6696110f6770ff5d",
                 "shasum": ""
             },
             "require": {
@@ -3410,7 +3410,7 @@
                 "jCard",
                 "vCard"
             ],
-            "time": "2015-08-06 20:27:33"
+            "time": "2015-09-04 15:17:58"
         },
         {
             "name": "sensio/generator-bundle",
@@ -7394,7 +7394,7 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.3.31",
+            "version": "v2.3.32",
             "target-dir": "Symfony/Component/CssSelector",
             "source": {
                 "type": "git",
