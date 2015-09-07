@@ -2461,23 +2461,32 @@ class Agenda
     {
         $courseInfo = api_get_course_info();
 
-        $actions = "<a href='".api_get_path(WEB_CODE_PATH)."calendar/agenda_js.php?type={$this->type}'>".
+        $actionsLeft = '';
+        $actionsLeft .= "<a href='".api_get_path(WEB_CODE_PATH)."calendar/agenda_js.php?type={$this->type}'>".
             Display::return_icon('calendar.png', get_lang('Calendar'), '', ICON_SIZE_MEDIUM)."</a>";
 
         $courseCondition = '';
         if (!empty($courseInfo)) {
             $courseCondition = api_get_cidreq();
         }
-        $actions .= "<a href='".api_get_path(WEB_CODE_PATH)."calendar/agenda_list.php?type={$this->type}&".$courseCondition."'>".
+
+        $actionsLeft .= "<a href='".api_get_path(WEB_CODE_PATH)."calendar/agenda_list.php?type={$this->type}&".$courseCondition."'>".
             Display::return_icon('week.png', get_lang('AgendaList'), '', ICON_SIZE_MEDIUM)."</a>";
+
+        $form = '';
 
         if (api_is_allowed_to_edit(false, true) ||
             (api_get_course_setting('allow_user_edit_agenda') && !api_is_anonymous()) && api_is_allowed_to_session_edit(false, true) ||
             GroupManager::user_has_access(api_get_user_id(), api_get_group_id(), GroupManager::GROUP_TOOL_CALENDAR) &&
             GroupManager::is_tutor_of_group(api_get_user_id(), api_get_group_id())
         ) {
+            $actionsLeft .= "<a href='".api_get_path(WEB_CODE_PATH)."calendar/agenda.php?".api_get_cidreq()."&action=add&type=course'>".
+                    Display::return_icon('new_event.png', get_lang('AgendaAdd'), '', ICON_SIZE_MEDIUM)."</a>";
+            $actionsLeft .= "<a href='".api_get_path(WEB_CODE_PATH)."calendar/agenda.php?".api_get_cidreq()."&action=importical&type=course'>".
+                    Display::return_icon('import_calendar.png', get_lang('ICalFileImport'), '', ICON_SIZE_MEDIUM)."</a>";
+
             if ($this->type == 'course') {
-                $form = null;
+
                 if (!isset($_GET['action'])) {
 
                     $form = new FormValidator(
@@ -2495,13 +2504,6 @@ class Agenda
                     $selectedValues = $this->parseAgendaFilter($filter);
                     $this->showToForm($form, $selectedValues, $attributes);
                     $form = $form->returnForm();
-                }
-                $actions .= "<a href='".api_get_path(WEB_CODE_PATH)."calendar/agenda.php?".api_get_cidreq()."&action=add&type=course'>".
-                    Display::return_icon('new_event.png', get_lang('AgendaAdd'), '', ICON_SIZE_MEDIUM)."</a>";
-                $actions .= "<a href='".api_get_path(WEB_CODE_PATH)."calendar/agenda.php?".api_get_cidreq()."&action=importical&type=course'>".
-                    Display::return_icon('import_calendar.png', get_lang('ICalFileImport'), '', ICON_SIZE_MEDIUM)."</a>";
-                if ($view == 'calendar') {
-                    $actions .= $form;
                 }
             }
         }
@@ -2535,20 +2537,25 @@ class Agenda
                         'session_id',
                         get_lang('Session'),
                         $sessions,
-                        ['id' => 'session_id']
+                        ['id' => 'session_id', 'onchange' => 'submit();']
                     );
-                    $form->addButtonFilter(get_lang('Filter'));
+                    //$form->addButtonFilter(get_lang('Filter'));
+                    //$renderer = $form->defaultRenderer();
+                    //$renderer->setCustomElementTemplate('<div class="col-md-6">{element}</div>');
+                    
                     $form->addButtonReset(get_lang('Reset'));
                     $form = $form->returnForm();
-                }
-
-                if ($view == 'calendar') {
-                    $actions .= $form;
                 }
             }
         }
 
-        return $actions;
+        
+        if ($view == 'calendar') {
+            $actionsRight .= $form;
+        }
+        
+        $toolbar = Display::toolbarAction('toolbar-agenda', array( 0 => $actionsLeft, 1 => $actionsRight), 2, false);
+        return $toolbar;
     }
 
     /**
@@ -2565,7 +2572,7 @@ class Agenda
         $form->addElement('header', get_lang('ICalFileImport'));
         $form->addElement('file', 'ical_import', get_lang('ICalFileImport'));
         $form->addRule('ical_import', get_lang('ThisFieldIsRequired'), 'required');
-        $form->addElement('button', 'ical_submit', get_lang('Import'));
+        $form->addButtonImport(get_lang('Import'), 'ical_submit');
 
         return $form;
     }
@@ -3362,6 +3369,4 @@ class Agenda
     {
         $this->isAllowedToEdit = $isAllowedToEdit;
     }
-
-
 }

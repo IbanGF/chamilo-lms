@@ -1,8 +1,7 @@
 <?php
 /* For licensing terms, see /license.txt */
-require_once '../inc/global.inc.php';
-require_once api_get_path(LIBRARY_PATH).'import.lib.php';
 
+require_once '../inc/global.inc.php';
 $this_section = SECTION_COURSES;
 
 // notice for unauthorized people.
@@ -41,11 +40,9 @@ $type = '';
 
 if ($form->validate()) {
     if (isset($_FILES['import_file']['size']) && $_FILES['import_file']['size'] !== 0) {
-
         $unsubscribe_users = isset($_POST['unsubscribe_users']) ? true : false;
         //@todo : csvToArray deprecated
         $users  = Import::csvToArray($_FILES['import_file']['tmp_name']);
-
         $invalid_users  = array();
         $clean_users    = array();
 
@@ -135,7 +132,6 @@ if (!empty($message)) {
     } else {
         $empty_line_msg = ($empty_line == 0) ? get_lang('ErrorsWhenImportingFile'): get_lang('ErrorsWhenImportingFile').': '.get_lang('EmptyHeaderLine');
         Display::display_error_message($empty_line_msg);
-
     }
 }
 

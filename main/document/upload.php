@@ -130,7 +130,10 @@ if (!empty($groupId)) {
 
     // Only courseadmin or group members allowed
     if ($is_allowed_to_edit || GroupManager::is_user_in_group(api_get_user_id(), $groupId)) {
-        $interbreadcrumb[] = array('url' => '../group/group_space.php?'.api_get_cidreq(), 'name' => get_lang('GroupSpace'));
+        $interbreadcrumb[] = array(
+            'url' => '../group/group_space.php?'.api_get_cidreq(),
+            'name' => get_lang('GroupSpace'),
+        );
     } else {
         api_not_allowed(true);
     }
@@ -170,9 +173,15 @@ if (isset($_REQUEST['certificate'])) {
 
 // Breadcrumbs
 if ($is_certificate_mode) {
-    $interbreadcrumb[] = array('url' => '../gradebook/'.$_SESSION['gradebook_dest'], 'name' => get_lang('Gradebook'));
+    $interbreadcrumb[] = array(
+        'url' => '../gradebook/'.$_SESSION['gradebook_dest'],
+        'name' => get_lang('Gradebook'),
+    );
 } else {
-    $interbreadcrumb[] = array('url' => './document.php?id='.$document_id.'&'.api_get_cidreq(), 'name'=> get_lang('Documents'));
+    $interbreadcrumb[] = array(
+        'url' => './document.php?id='.$document_id.'&'.api_get_cidreq(),
+        'name' => get_lang('Documents'),
+    );
 }
 
 // Interbreadcrumb for the current directory root path
@@ -212,19 +221,19 @@ if (!empty($_FILES)) {
 }
 
 // Actions
-echo '<div class="actions">';
+
 // Link back to the documents overview
 if ($is_certificate_mode) {
-    echo '<a href="document.php?id='.$document_id.'&selectcat=' . $selectcat.'&'.api_get_cidreq().'">'.
+    $actions = '<a href="document.php?id='.$document_id.'&selectcat=' . $selectcat.'&'.api_get_cidreq().'">'.
             Display::return_icon('back.png',get_lang('BackTo').' '.get_lang('CertificateOverview'),'',ICON_SIZE_MEDIUM).'</a>';
 } else {
-    echo '<a href="document.php?id='.$document_id.'&'.api_get_cidreq().'">'.
+    $actions = '<a href="document.php?id='.$document_id.'&'.api_get_cidreq().'">'.
             Display::return_icon('back.png',get_lang('BackTo').' '.get_lang('DocumentsOverview'),'',ICON_SIZE_MEDIUM).'</a>';
 }
 
 // Link to create a folder
-echo '</div>';
 
+echo $toolbar = Display::toolbarAction('toolbar-upload', array( 0 => $actions), 1);
 // Form to select directory
 $folders = DocumentManager::get_all_document_folders($_course, $groupId, $is_allowed_to_edit);
 if (!$is_certificate_mode) {
@@ -259,7 +268,13 @@ $form->addButtonAdvancedSettings('advanced_params');
 $form->addElement('html', '<div id="advanced_params_options" style="display:none">');
 
 // Check box options
-$form->addElement('checkbox', 'unzip', get_lang('Options'), get_lang('Uncompress'), 'onclick="javascript: check_unzip();" value="1"');
+$form->addElement(
+    'checkbox',
+    'unzip',
+    get_lang('Options'),
+    get_lang('Uncompress'),
+    'onclick="javascript: check_unzip();" value="1"'
+);
 
 if (api_get_setting('search_enabled') == 'true') {
     //TODO: include language file
@@ -303,7 +318,7 @@ $form->setDefaults($defaults);
 $simple_form = $form->returnForm();
 
 $url = api_get_path(WEB_AJAX_PATH).'document.ajax.php?'.api_get_cidreq().'&a=upload_file';
-$multiple_form =  get_lang('ClickToSelectOrDragAndDropMultipleFilesOnTheUploadField').'<br />';
+$multiple_form = '<div class="description-upload">'.get_lang('ClickToSelectOrDragAndDropMultipleFilesOnTheUploadField').'</div>';
 $multiple_form .=  '
     <div class="form-ajax">
     <form id="file_upload" action="'.$url.'" method="POST" enctype="multipart/form-data">
@@ -327,8 +342,11 @@ $nav_info = api_get_navigator();
 if ($nav_info ['name'] == 'Internet Explorer') {
     echo $simple_form;
 } else {
-    $headers = array(get_lang('Send') , get_lang('Send').' ('.get_lang('Simple').')');
-    echo Display::tabs($headers, array($multiple_form, $simple_form),'tabs');
+    $headers = array(
+        get_lang('Upload'),
+        get_lang('Upload').' ('.get_lang('Simple').')',
+    );
+    echo Display::tabs($headers, array($multiple_form, $simple_form), 'tabs');
 }
 
 Display::display_footer();
