@@ -142,6 +142,7 @@ class CourseManager
                     }
 
                     $params['course_code'] = $course_info['code'];
+                    $params['item_id'] = $course_info['real_id'];
 
                     $courseFieldValue = new ExtraFieldValue('course');
                     $courseFieldValue->saveFieldValues($params);
@@ -1805,6 +1806,9 @@ class CourseManager
     {
         $courseInfo = api_get_course_info($course_code);
         $courseId = $courseInfo['real_id'];
+        if (empty($courseId)) {
+            return false;
+        }
 
         $sql = "SELECT DISTINCT
                     u.id as user_id,
@@ -3816,11 +3820,15 @@ class CourseManager
         $session_accessible = true,
         $load_dirs = false
     ) {
+        $entityManager = Database::getManager();
         $user_id = api_get_user_id();
         $course_info = api_get_course_info_by_id($course['real_id']);
         $status_course = CourseManager::get_user_in_course_status($user_id, $course_info['code']);
         $course_info['status'] = empty($session_id) ? $status_course : STUDENT;
         $course_info['id_session'] = $session_id;
+        $objUser = $entityManager->find('ChamiloUserBundle:User', $user_id);
+        $objCourse = $entityManager->find('ChamiloCoreBundle:Course', $course['real_id']);
+        $objSession = $entityManager->find('ChamiloCoreBundle:Session', $session_id);
 
         /*$date_start = $sess[$course_info['id_session']]['access_start_date'];
         $date_end = $sess[$course_info['id_session']]['access_end_date'];*/
@@ -4018,6 +4026,19 @@ class CourseManager
                 'active' => $active,
                 'session_category_id' => $session_category_id
             );
+
+            if (api_get_setting('allow_skills_tool') === 'true') {
+                $skill = $entityManager
+                    ->getRepository('ChamiloCoreBundle:Skill')
+                    ->getLastByUser($objUser, $objCourse, $objSession);
+
+                $output['skill'] = null;
+
+                if ($skill) {
+                    $output['skill']['name'] = $skill->getName();
+                    $output['skill']['icon'] = $skill->getIcon();
+                }
+            }
         } else {
             $output = array($course_info['user_course_cat'], $html);
         }
