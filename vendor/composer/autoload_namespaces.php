@@ -30,7 +30,6 @@ return array(
     'MediaVorus' => array($vendorDir . '/mediavorus/mediavorus/src'),
     'MediaAlchemyst' => array($vendorDir . '/media-alchemyst/media-alchemyst/src'),
     'MP4Box' => array($vendorDir . '/php-mp4box/php-mp4box/src'),
-    'Knp\\Bundle\\MenuBundle' => array($vendorDir . '/knplabs/knp-menu-bundle'),
     'JsonpCallbackValidator' => array($vendorDir . '/willdurand/jsonp-callback-validator/src'),
     'Imagine' => array($vendorDir . '/imagine/imagine/lib'),
     'HttpAdapter' => array($vendorDir . '/toin0u/http-adapter/src'),
