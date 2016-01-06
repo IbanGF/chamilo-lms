@@ -1330,7 +1330,7 @@ switch ($action) {
             }
         }
 
-        header('Location:' . api_get_path(WEB_SERVER_ROOT_PATH) . api_get_self() . '?' . http_build_query([
+        header('Location:' . strstr(api_get_path(WEB_SERVER_ROOT_PATH), 0, -1) . api_get_self() . '?' . http_build_query([
             'action' => 'add_item',
             'type' => 'step',
             'lp_id' => $_SESSION['oLP']->lp_id
@@ -1372,7 +1372,7 @@ switch ($action) {
             }
         }
 
-        header('Location:' . api_get_path(WEB_SERVER_ROOT_PATH) . api_get_self() . '?' . http_build_query([
+        header('Location:' . strstr(api_get_path(WEB_SERVER_ROOT_PATH), 0, -1) . api_get_self() . '?' . http_build_query([
             'action' => 'add_item',
             'type' => 'step',
             'lp_id' => $_SESSION['oLP']->lp_id

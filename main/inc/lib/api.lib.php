@@ -3055,9 +3055,9 @@ function api_display_tool_view_option() {
     // Check whether the $_SERVER['REQUEST_URI'] contains already url parameters (thus a questionmark)
     if (!$is_framed) {
         if (strpos($_SERVER['REQUEST_URI'], '?') === false) {
-            $sourceurl = api_get_self().'?'.api_get_cidreq();
+            $sourceurl = strstr(api_get_path(WEB_SERVER_ROOT_PATH), 0, -1).api_get_self().'?'.api_get_cidreq();
         } else {
-            $sourceurl = $_SERVER['REQUEST_URI'];
+            $sourceurl = strstr(api_get_path(WEB_SERVER_ROOT_PATH), 0, -1).$_SERVER['REQUEST_URI'];
             //$sourceurl = str_replace('&', '&amp;', $sourceurl);
         }
     }
